@@ -33,9 +33,9 @@ def get_shop_list_by_dishes(dishes, person_count):
                         int(number_ingredients[ingredients['ingredient_name']]['quantity']) +
                         int(ingredients['quantity']) * person_count
                     }
-    return number_ingredients        
-        # else:
-        #     print(f'\n"Такого блюда нет в списке!"\n')
+        else:
+            print(f'\n"Такого блюда нет в списке!"\n')
+    return number_ingredients 
     
     
 print(get_shop_list_by_dishes(['Омлет', 'Фахитос'], 10))
