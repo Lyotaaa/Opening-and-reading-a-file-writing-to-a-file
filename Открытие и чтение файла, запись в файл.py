@@ -19,24 +19,23 @@ with open('recipes.txt', 'rt', encoding='utf-8') as f:
 
 #Задача №2
 def get_shop_list_by_dishes(dishes, person_count):
-    number_indigents = {}
+    number_ingredients = {}
     for meal in dishes:
         if meal in cook_book:
             for ingredients in cook_book[meal]:
-                #Свой вариант
-                ingredients['quantity'] = int(ingredients["quantity"]) * person_count
-                ingredients = {
-                    'measure': ingredients['measure'],
-                    'quantity': ingredients['quantity'],
-                    'ingredient_name': ingredients['ingredient_name']
-                }
-                number_indigents[ingredients['ingredient_name']] = ingredients
-                retrievable_value = ingredients.pop('ingredient_name')
-                #Подсказал эксперт(аспират)
-                # number_indigents[indigents['ingredient_name']] = {
-                #     'measure': indigents['measure'],
-                #     'quantity': int(indigents['quantity']) * person_count
-                # }
-    return print(number_indigents)
-
-get_shop_list_by_dishes(['Омлет', 'Фахитос'], 10)
+                if ingredients['ingredient_name'] not in number_ingredients:
+                    number_ingredients[ingredients['ingredient_name']] = {
+                        'measure': ingredients['measure'],
+                        'quantity': int(ingredients['quantity']) * person_count
+                    }
+                else:
+                    number_ingredients[ingredients['ingredient_name']]['quantity'] = {
+                        int(number_ingredients[ingredients['ingredient_name']]['quantity']) +
+                        int(ingredients['quantity']) * person_count
+                    }
+    return number_ingredients        
+        # else:
+        #     print(f'\n"Такого блюда нет в списке!"\n')
+    
+    
+print(get_shop_list_by_dishes(['Омлет', 'Фахитос'], 10))
